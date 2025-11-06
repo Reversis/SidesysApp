@@ -87,13 +87,6 @@ sidesys-vigencias/
 - ✅ Exportar reportes
 - ❌ No puede modificar clientes ni usuarios
 
-### 3. **SYSTEM**
-**Solo VISUALIZACIÓN:**
-- ✅ Ver sistema de semáforo
-- ✅ Ver dashboard básico
-- ✅ Filtrar por estado crítico
-- ❌ Sin permisos de edición
-
 ### 4. **COMERCIAL**
 **Solo REPORTES:**
 - ✅ Ver dashboard
