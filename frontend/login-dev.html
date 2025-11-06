@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIDESYS - Login Desarrollo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 0.5rem 0;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+            display: none;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2 style="text-align: center;">🔐 SIDESYS - Login Desarrollo</h2>
+        
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" value="stac@sidesys.com">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" value="Admin123">
+        </div>
+        
+        <button onclick="testLogin('normal')">🔍 Probar Login Normal</button>
+        <button onclick="testLogin('dev')">🛠️ Probar Login Desarrollo</button>
+        <button onclick="testDatabase()">🗃️ Probar Base de Datos</button>
+        
+        <div id="result" class="result"></div>
+        
+        <div style="margin-top: 1rem; text-align: center;">
+            <p><strong>Credenciales:</strong> stac@sidesys.com / Admin123</p>
+        </div>
+    </div>
+
+    <script>
+        async function testLogin(type) {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const resultDiv = document.getElementById('result');
+            
+            const endpoint = type === 'dev' ? '/api/auth/login-dev' : '/api/auth/login';
+            
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showResult('success', `✅ ${result.message}<br>Token: ${result.data.token.substring(0, 20)}...`);
+                    
+                    // Guardar y redirigir
+                    localStorage.setItem('sidesys_token', result.data.token);
+                    localStorage.setItem('sidesys_user', JSON.stringify(result.data.user));
+                    
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 2000);
+                } else {
+                    showResult('error', `❌ ${result.message}`);
+                }
+            } catch (error) {
+                showResult('error', `❌ Error: ${error.message}`);
+            }
+        }
+
+        async function testDatabase() {
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                const response = await fetch('/api/diagnostic');
+                const result = await response.json();
+                
+                if (result.success) {
+                    showResult('success', 
+                        `✅ Base de datos: ${result.diagnostic.database.connected ? 'CONECTADA' : 'DESCONECTADA'}<br>
+                         Tablas: ${result.diagnostic.tables.length}<br>
+                         Usuarios: ${result.diagnostic.tables.find(t => t.TABLE_NAME === 'Usuarios') ? 'EXISTE' : 'NO EXISTE'}`
+                    );
+                } else {
+                    showResult('error', `❌ Error en diagnóstico: ${result.error}`);
+                }
+            } catch (error) {
+                showResult('error', `❌ Error: ${error.message}`);
+            }
+        }
+
+        function showResult(type, message) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = `result ${type}`;
+            resultDiv.innerHTML = message;
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

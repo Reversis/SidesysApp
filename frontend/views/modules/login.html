@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIDESYS - Iniciar Sesión</title>
+    <link rel="stylesheet" href="../assets/css/auth.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <img src="../assets/img/sidesys-logo.png" alt="SIDESYS" class="logo">
+            <h1>Control de Vigencias</h1>
+            <p>Sistema de gestión de vigencias de productos SIDESYS</p>
+        </div>
+
+        <div class="login-form">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="usuario@sidesys.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" required placeholder="••••••••">
+                </div>
+
+                <div id="error-message" class="error-message" style="display: none;"></div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span class="btn-text">Iniciar Sesión</span>
+                    <span class="btn-loading" style="display: none;">Cargando...</span>
+                </button>
+            </form>
+
+            <div class="login-info">
+                <h3>Sistema de Roles</h3>
+                <div class="roles-info">
+                    <div class="role-item">
+                        <span class="role-badge stac">STAC</span>
+                        <span>Administrador completo</span>
+                    </div>
+                    <div class="role-item">
+                        <span class="role-badge proyecto">PROYECTO</span>
+                        <span>Gestión de vigencias</span>
+                    </div>
+                    <div class="role-item">
+                        <span class="role-badge comercial">COMERCIAL</span>
+                        <span>Reportes y dashboard</span>
+                    </div>
+                    <div class="role-item">
+                        <span class="role-badge system">SYSTEM</span>
+                        <span>Visualización básica</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="login-footer">
+            <p>&copy; 2024 SIDESYS. Todos los derechos reservados.</p>
+        </div>
+    </div>
+
+    <script src="../assets/js/auth.js"></script>
+</body>
+</html>

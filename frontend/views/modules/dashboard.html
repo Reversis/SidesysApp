@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SIDESYS Vigencias</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h3>SIDESYS</h3>
+                <p>Control de Vigencias</p>
+            </div>
+            <ul class="sidebar-nav" id="sidebarNav">
+                <!-- Navegación se genera dinámicamente -->
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1>Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <button id="exportBtn" class="btn btn-primary" style="display: none;">
+                        📊 Exportar Reporte
+                    </button>
+                    <div class="user-menu">
+                        <span id="userRole" class="user-role"></span>
+                        <span id="userInfo" class="user-info"></span>
+                        <button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="content">
+                <!-- Estadísticas Rápidas -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon green">📅</div>
+                        <div class="stat-info">
+                            <h3 id="totalVigencias">0</h3>
+                            <p>Vigencias Activas</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon red">⚠️</div>
+                        <div class="stat-info">
+                            <h3 id="vigenciasRojo">0</h3>
+                            <p>Estado Crítico</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon yellow">🔔</div>
+                        <div class="stat-info">
+                            <h3 id="vigenciasAmarillo">0</h3>
+                            <p>Por Vencer</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon blue">👥</div>
+                        <div class="stat-info">
+                            <h3 id="totalClientes">0</h3>
+                            <p>Clientes Activos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenido del Módulo -->
+                <div class="dashboard-module">
+    <!-- Estadísticas Rápidas -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon total">📊</div>
+            <div class="stat-info">
+                <h3 id="totalVigencias">0</h3>
+                <p>Total Vigencias</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon vencidos">❌</div>
+            <div class="stat-info">
+                <h3 id="vigenciasVencidas">0</h3>
+                <p>Vencidos</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon critico">🔥</div>
+            <div class="stat-info">
+                <h3 id="vigenciasRojo">0</h3>
+                <p>Críticos</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon advertencia">⚠️</div>
+            <div class="stat-info">
+                <h3 id="vigenciasAmarillo">0</h3>
+                <p>Advertencia</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon proximos">📅</div>
+            <div class="stat-info">
+                <h3 id="vigenciasProximas">0</h3>
+                <p>Próximos</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon vigentes">✅</div>
+            <div class="stat-info">
+                <h3 id="vigenciasVerde">0</h3>
+                <p>Vigentes</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-content">
+        <!-- Próximas Caducidades -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Próximas 5 Caducidades</h2>
+                <span class="badge" id="proximasCount">0</span>
+            </div>
+            <div class="card-body">
+                <div id="proximasVigenciasList" class="vigencias-list">
+                    <!-- Lista dinámica -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla Completa de Vigencias -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Todas las Vigencias</h2>
+                <div class="header-actions">
+                    <button id="exportBtn" class="btn btn-primary" style="display: none;">
+                        📊 Exportar a Excel
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table id="vigenciasTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Producto</th>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Caducidad</th>
+                                <th>Días Restantes</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vigenciasTableBody">
+                            <!-- Datos dinámicos -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="vigenciasLoading" class="loading-state">
+                    Cargando vigencias...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <!-- Información de Permisos -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Información de Permisos</h2>
+                        </div>
+                        <div class="card-body">
+                            <div id="permissionsInfo">
+                                <!-- Información de permisos según rol -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>
