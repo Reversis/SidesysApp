@@ -200,49 +200,7 @@ sidesys-vigencias/
 
 ---
 
-## 🔧 Instalación y Configuración
 
-### Requisitos Previos
-- Node.js v18 o superior
-- SQL Server 2019 o superior
-- Windows Server con IIS (para producción)
-
-### 1. Clonar el repositorio
-```bash
-git clone https://github.com/sidesys/vigencias-sistema.git
-cd vigencias-sistema
-```
-
-### 2. Instalar dependencias
-```bash
-npm install
-```
-
-### 3. Configurar variables de entorno
-Crear archivo `.env` en la raíz:
-```env
-# Base de Datos
-DB_SERVER=localhost
-DB_DATABASE=SIDESYS_Vigencias
-DB_USER=sa
-DB_PASSWORD=tu_password
-DB_ENCRYPT=true
-DB_TRUST_CERTIFICATE=true
-
-# JWT
-JWT_SECRET=tu_clave_secreta_super_segura
-JWT_EXPIRES_IN=8h
-
-# Servidor
-PORT=3000
-NODE_ENV=development
-
-# Resend API (Email)
-RESEND_API_KEY=tu_api_key_de_resend
-
-# Microsoft Teams
-TEAMS_WEBHOOK_URL=tu_webhook_url
-```
 
 ### 4. Ejecutar scripts de base de datos
 ```bash
