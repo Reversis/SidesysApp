@@ -323,12 +323,6 @@ Propiedad de **SIDESYS** - Todos los derechos reservados.
 
 ---
 
-## 📞 Contacto y Soporte
-
-Para soporte técnico o consultas:
-- **Email**: soporte@sidesys.com
-- **Documentación**: [Wiki del proyecto]
-
 ---
 
 ## 🙏 Créditos
